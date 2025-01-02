@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Caneppele Public Notes</title>
-    <link>https://caneppelevitor.github.io/</link>
+    <link>http://localhost:1313/</link>
     <description>Recent content on Caneppele Public Notes</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 02 Jan 2025 12:51:36 +0100</lastBuildDate>
-    <atom:link href="https://caneppelevitor.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Every Thing Is a mix Tape</title>
-      <link>https://caneppelevitor.github.io/posts/everythingisamixtape/</link>
+      <title>How Everything Is Made from Something Previous: The Cycle of Copy, Transform, and Combine</title>
+      <link>http://localhost:1313/posts/everythingisamixtape/</link>
       <pubDate>Thu, 02 Jan 2025 12:51:36 +0100</pubDate>
-      <guid>https://caneppelevitor.github.io/posts/everythingisamixtape/</guid>
-      <description>&lt;ul&gt;&#xA;&lt;li&gt;How everything is made about something previous and the base of any innovation is (copy, transform and combine)&lt;/li&gt;&#xA;&lt;li&gt;The problems with the ideia of intelectual properties.&lt;/li&gt;&#xA;&lt;li&gt;We can’t stop the innovation if someone didn’t do it other will do, cause same ideias are based on the same bases that happens at the same time. &lt;/li&gt;&#xA;&lt;li&gt;Copy is Ok. Copy is a part of a process o innovation, we need to copy things to understand(we copied our language to communicate) after the process of copy comes the process of transform and to do that you really need to know/drink that influence and in order to do that copy is a powerful tool.&lt;/li&gt;&#xA;&lt;li&gt;The present hypocrisy that capitalism is based in terms of the big companies that leads our market today started based on copy others invention, but when we arrives in terms of people making things based on their “inventions” happens a judicial oppression.&lt;/li&gt;&#xA;&lt;li&gt;The Intelectual property is not a good thing for the progress, ideas and inventions need to be free, nothing is our or yours or mine, ideias need to fly thru peoples mind, that’s gonna bring the world the innovations. &lt;/li&gt;&#xA;&lt;li&gt;Open Source &lt;/li&gt;&#xA;&lt;li&gt;J Dilla influence on the musical scene by doing the same steps of copy, transform and combine.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;Inspirational font- &lt;a href=&#34;https://www.youtube.com/watch?v=nJPERZDfyWc&amp;amp;list=LL&amp;amp;index=1&amp;amp;t=1022s&#34;&gt;&lt;strong&gt;https://www.youtube.com/watch?v=nJPERZDfyWc&amp;amp;list=LL&amp;amp;index=1&amp;amp;t=1022s&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</description>
+      <guid>http://localhost:1313/posts/everythingisamixtape/</guid>
+      <description>&lt;p&gt;Innovation does not emerge in a vacuum; it builds upon existing ideas and structures. The core of any creative process lies in three fundamental steps: copy, transform, and combine. These steps represent the foundation of human progress and creativity. From language to technology, we inherently learn by mimicking what came before us. Copying is not theft—it’s the first stage of understanding and mastery. It’s only through absorbing and internalizing ideas that we can adapt and transform them into something new and innovative.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
