@@ -2,18 +2,25 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Vitor Caneppele</title>
-    <link>http://localhost:54305/</link>
+    <link>http://localhost:1313/</link>
     <description>Recent content on Vitor Caneppele</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 02 Jan 2025 12:51:36 +0100</lastBuildDate>
-    <atom:link href="http://localhost:54305/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 03 Apr 2025 08:00:00 +0100</lastBuildDate>
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>The Death of Science and the Birth of Magic in Software Development</title>
+      <link>http://localhost:1313/docs/cheatsheet/thoughts/death-of-science-birth-of-magic/</link>
+      <pubDate>Thu, 03 Apr 2025 08:00:00 +0100</pubDate>
+      <guid>http://localhost:1313/docs/cheatsheet/thoughts/death-of-science-birth-of-magic/</guid>
+      <description>&lt;p&gt;In &lt;em&gt;The Abolition of Man&lt;/em&gt;, C.S. Lewis observed the death of magic and the birth of science—a shift that signified humanity’s transition from mystical attempts at dominion over nature to rigorous, systematic inquiry. Magic sought power through rituals and symbols; science pursued understanding through reason and experimentation. Science triumphed because, unlike magic, it actually worked. But today, in software development, we stand at the precipice of an inversion: the death of science and the rebirth of magic.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>How Everything Is Made from Something Previous: The Cycle of Copy, Transform, and Combine</title>
-      <link>http://localhost:54305/docs/cheatsheet/thoughts/everythingisamixtape/</link>
+      <link>http://localhost:1313/docs/cheatsheet/thoughts/everythingisamixtape/</link>
       <pubDate>Thu, 02 Jan 2025 12:51:36 +0100</pubDate>
-      <guid>http://localhost:54305/docs/cheatsheet/thoughts/everythingisamixtape/</guid>
-      <description>&lt;hr&gt;&#xA;&lt;p&gt;Innovation does not emerge in a vacuum; it builds upon existing ideas and structures. The core of any screative process lies in three fundamental steps: &lt;strong&gt;copy&lt;/strong&gt;, &lt;strong&gt;transform&lt;/strong&gt;, and &lt;strong&gt;combine&lt;/strong&gt;. These steps represent the foundation of human progress and creativity.&lt;/p&gt;&#xA;&lt;p&gt;From language to technology, we inherently learn by mimicking what came before us. Copying is not theft—it’s the first stage of understanding and mastery. It’s only through absorbing and internalizing ideas that we can adapt and transform them into something new and innovative.&lt;/p&gt;</description>
+      <guid>http://localhost:1313/docs/cheatsheet/thoughts/everythingisamixtape/</guid>
+      <description>&lt;p&gt;Innovation does not emerge in a vacuum; it builds upon existing ideas and structures. The core of any screative process lies in three fundamental steps: &lt;strong&gt;copy&lt;/strong&gt;, &lt;strong&gt;transform&lt;/strong&gt;, and &lt;strong&gt;combine&lt;/strong&gt;. These steps represent the foundation of human progress and creativity.&lt;/p&gt;&#xA;&lt;p&gt;From language to technology, we inherently learn by mimicking what came before us. Copying is not theft—it’s the first stage of understanding and mastery. It’s only through absorbing and internalizing ideas that we can adapt and transform them into something new and innovative.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
