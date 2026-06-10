@@ -117,11 +117,6 @@
   .toc a:hover,.toc a.is-active{color:var(--fg-bright);border-left-color:var(--accent)}
   .toc a.toc-h3{padding-left:1.6ch;font-size:.68rem}
 
-  .statusline{display:none}
-  .cmdline{display:none}
-
-  .hint{display:none}
-
   @media (max-width:900px){
     .detail-wrap{grid-template-columns:1fr;padding:2.4rem clamp(1.5rem,6vw,5rem) 4rem}
     .toc{display:none}
@@ -231,84 +226,27 @@
 
   </main>
 
-  <!-- ============ STATUSLINE ============ -->
-  <div class="statusline" id="statusline" role="status" aria-live="polite">
-    <div class="seg mode" id="mode">NORMAL</div>
-    <div class="seg file" id="file">~/writing/<span id="filename">index.md</span><span class="mod" id="modflag"></span></div>
-    <div class="seg right" id="counts"></div>
-    <div class="seg pos" id="pos">1:1</div>
-  </div>
-
-  <!-- ============ CMDLINE ============ -->
-  <div class="cmdline is-hidden" id="cmdline">
-    <span class="pfx" id="cmdpfx">:</span><span class="txt" id="cmdtxt"></span><span class="caret"></span>
-    <span class="ghost" id="cmdghost"></span>
-  </div>
-
 </div>
-
-<div class="hint">PRESS&nbsp;&nbsp;?&nbsp;FOR&nbsp;KEYS&nbsp;&nbsp;·&nbsp;&nbsp;:HELP</div>
 
 <script>
 (() => {
   const $ = (s, r=document) => r.querySelector(s);
   const $$ = (s, r=document) => [...r.querySelectorAll(s)];
 
-  const buffer    = $('#buffer');
-  const list      = $('#list');
-  const rows      = () => $$('.row:not(.is-hidden)', list);
-  const statusLn  = $('#statusline');
-  const modeEl    = $('#mode');
-  const filenameEl= $('#filename');
-  const posEl     = $('#pos');
-  const countsEl  = $('#counts');
-  const cmdline   = $('#cmdline');
-  const cmdpfx    = $('#cmdpfx');
-  const cmdtxt    = $('#cmdtxt');
-  const cmdghost  = $('#cmdghost');
+  const buffer     = $('#buffer');
+  const list       = $('#list');
+  const detailWrap = $('#detail-wrap');
+  const toc        = $('#toc');
+  const rows       = () => $$('.row:not(.is-hidden)', list);
 
-  let mode = 'normal';
+  let view = 'list';
   let selIdx = 0;
-  let cmdBuf = '';
   let pendingNum = '';
   let pendingOp  = '';
-  let searchQuery = '';
-  let lastView = 'list';
-
-  const total = () => rows().length;
-
-  function setMode(m){
-    mode = m;
-    statusLn.classList.remove('is-search','is-command');
-    if(m==='search') statusLn.classList.add('is-search');
-    if(m==='command') statusLn.classList.add('is-command');
-    modeEl.textContent = m === 'normal' ? 'NORMAL'
-                     : m === 'search'   ? 'SEARCH'
-                     : m === 'command'  ? 'COMMAND'
-                     : m === 'detail'   ? 'READ' : m.toUpperCase();
-    cmdline.classList.toggle('is-hidden', !(m==='search'||m==='command'));
-  }
-
-  function updateStatus(){
-    const visible = rows();
-    const n = visible.length;
-    const idx = Math.min(selIdx, Math.max(0,n-1));
-    const cur = visible[idx];
-    const id  = cur ? cur.dataset.id : '';
-    if(mode==='detail'){
-      filenameEl.textContent = id ? `${id}.md` : 'index.md';
-    } else {
-      filenameEl.textContent = 'index.md';
-    }
-    countsEl.innerHTML = mode==='detail'
-      ? '<span class="hint-back" data-back="1"><kbd>esc</kbd>back to list</span>'
-      : `${n} entries`;
-    posEl.textContent = mode==='detail' ? '—' : `${idx+1}:${n}`;
-  }
 
   function paintSelection(){
     const visible = rows();
-    visible.forEach((r,i)=>r.classList.toggle('is-selected', i===selIdx));
+    visible.forEach((r,i) => r.classList.toggle('is-selected', i===selIdx));
     const cur = visible[selIdx];
     if(cur){
       const r = cur.getBoundingClientRect();
@@ -316,11 +254,10 @@
       if(r.top < br.top + 24) buffer.scrollBy({top: r.top - br.top - 24, behavior:'smooth'});
       else if(r.bottom > br.bottom - 24) buffer.scrollBy({top: r.bottom - br.bottom + 24, behavior:'smooth'});
     }
-    updateStatus();
   }
 
   function moveTo(i){
-    const n = total();
+    const n = rows().length;
     if(n===0) return;
     selIdx = Math.max(0, Math.min(n-1, i));
     paintSelection();
@@ -336,13 +273,9 @@
     }
   }
 
-  const detailWrap = $('#detail-wrap');
-  const toc = $('#toc');
-
   function buildToc(art){
     toc.querySelectorAll('a').forEach(a => a.remove());
-    const headings = art.querySelectorAll('h2, h3');
-    headings.forEach((h, i) => {
+    art.querySelectorAll('h2, h3').forEach((h, i) => {
       if(!h.id) h.id = 'section-' + i;
       const a = document.createElement('a');
       a.href = '#' + h.id;
@@ -365,199 +298,51 @@
     detailWrap.style.display = '';
     $$('.detail').forEach(a => a.classList.toggle('is-open', a===art));
     buildToc(art);
-    setMode('detail');
+    view = 'detail';
     buffer.scrollTop = 0;
-    lastView = 'detail';
-    updateStatus();
   }
 
   function closeDetail(){
     $$('.detail.is-open').forEach(a => a.classList.remove('is-open'));
     detailWrap.style.display = 'none';
     list.style.display = '';
-    setMode('normal');
-    lastView = 'list';
+    view = 'list';
     paintSelection();
-  }
-
-  function applySearch(q){
-    searchQuery = q;
-    const ql = q.toLowerCase().trim();
-    $$('.row', list).forEach(r => {
-      const t = r.querySelector('.ttl').textContent.toLowerCase();
-      const tag = (r.dataset.tag||'').toLowerCase();
-      const hit = !ql || t.includes(ql) || tag.includes(ql);
-      r.classList.toggle('is-hidden', !hit);
-      const ttl = r.querySelector('.ttl');
-      const original = ttl.dataset.original || (ttl.dataset.original = ttl.textContent);
-      if(ql){
-        const i = original.toLowerCase().indexOf(ql);
-        if(i>=0){
-          ttl.innerHTML = original.slice(0,i)
-            + '<em>'+original.slice(i,i+ql.length)+'</em>'
-            + original.slice(i+ql.length);
-        } else ttl.textContent = original;
-      } else ttl.textContent = original;
-    });
-    selIdx = 0;
-    paintSelection();
-  }
-
-  function clearSearch(){
-    applySearch('');
-  }
-
-  function runCommand(raw){
-    const c = raw.trim();
-    if(!c) return;
-    if(/^\d+$/.test(c)){ moveTo(parseInt(c,10)-1); return; }
-    if(c==='q' || c==='quit' || c==='close') { if(mode==='detail') closeDetail(); return; }
-    if(c==='help' || c==='h')    { showHelp(); return; }
-    if(c==='clear' || c==='noh') { clearSearch(); return; }
-    if(c.startsWith('e ') || c.startsWith('edit ')){
-      const id = c.split(/\s+/)[1];
-      const match = $$('.row').find(r=>r.dataset.id===id);
-      if(match){
-        applySearch('');
-        const vis = rows();
-        const idx = vis.indexOf(match);
-        if(idx>=0){ moveTo(idx); openDetail(id); }
-      } else flash(`no such entry: ${id}`);
-      return;
-    }
-    flash(`E492: not a command: ${c}`);
-  }
-
-  function flash(msg){
-    cmdghost.textContent = msg;
-    cmdline.classList.remove('is-hidden');
-    cmdpfx.textContent = '';
-    cmdtxt.textContent = '';
-    setTimeout(()=>{
-      if(mode==='normal'||mode==='detail') cmdline.classList.add('is-hidden');
-      cmdghost.textContent = '';
-    }, 1600);
-  }
-
-  function showHelp(){
-    const id = 'help';
-    let art = $(`.detail[data-id="${id}"]`);
-    if(!art){
-      art = document.createElement('article');
-      art.className = 'detail'; art.dataset.id = id;
-      art.innerHTML = `
-        <div class="meta"><span><span class="k">type</span> HELP</span><span><span class="k">version</span> 0.1</span></div>
-        <h1>Keys</h1>
-        <h2>Navigation</h2>
-        <pre>j / ↓        next entry
-k / ↑        previous entry
-gg           top
-G            bottom
-NUM gg       go to entry NUM   (e.g. 5gg)
-o / Enter    open selected
-Esc / q      back to list (from a detail)
-?            toggle this help</pre>
-        <h2>Search</h2>
-        <pre>/text        filter the list (live)
-Enter        confirm filter
-Esc          cancel search
-:noh         clear filter</pre>
-        <h2>Commands</h2>
-        <pre>:NN          jump to entry NN
-:e id        open entry by id (e.g. :e moth)
-:q           close detail
-:help        this help
-:clear       clear search</pre>
-        <h2>Mouse</h2>
-        <pre>click row    open it</pre>`;
-      buffer.appendChild(art);
-    }
-    list.style.display = 'none';
-    $$('.detail').forEach(a => a.classList.toggle('is-open', a===art));
-    setMode('detail');
-    buffer.scrollTop = 0;
-    updateStatus();
-  }
-
-  function renderCmdline(){
-    cmdpfx.textContent = mode==='search' ? '/' : mode==='command' ? ':' : '';
-    cmdtxt.textContent = cmdBuf;
-    cmdghost.textContent = '';
   }
 
   document.addEventListener('keydown', (e) => {
     const t = e.target;
     if(t && (t.tagName==='INPUT'||t.tagName==='TEXTAREA'||t.isContentEditable)) return;
 
-    if(mode==='search' || mode==='command'){
-      if(e.key==='Escape'){
-        if(mode==='search') clearSearch();
-        cmdBuf=''; setMode(lastView==='detail'?'detail':'normal'); renderCmdline();
-        e.preventDefault(); return;
-      }
-      if(e.key==='Enter'){
-        if(mode==='search'){
-          setMode(lastView==='detail' ? 'detail' : 'normal');
-          cmdBuf=''; renderCmdline();
-        } else {
-          runCommand(cmdBuf);
-          cmdBuf=''; setMode(lastView==='detail' ? 'detail' : 'normal'); renderCmdline();
-        }
-        e.preventDefault(); return;
-      }
-      if(e.key==='Backspace'){
-        cmdBuf = cmdBuf.slice(0,-1);
-        if(mode==='search') applySearch(cmdBuf);
-        renderCmdline();
-        e.preventDefault(); return;
-      }
-      if(e.key.length===1 && !e.metaKey && !e.ctrlKey && !e.altKey){
-        cmdBuf += e.key;
-        if(mode==='search') applySearch(cmdBuf);
-        renderCmdline();
-        e.preventDefault(); return;
-      }
-      return;
-    }
-
-    if(mode==='detail'){
-      if(e.key==='Escape' || e.key==='q'){ closeDetail(); e.preventDefault(); return; }
-      if(e.key===':'){ cmdBuf=''; setMode('command'); renderCmdline(); e.preventDefault(); return; }
-      if(e.key==='/'){ cmdBuf=''; setMode('search'); renderCmdline(); e.preventDefault(); return; }
+    if(view==='detail'){
+      if(e.key==='Escape'){ closeDetail(); e.preventDefault(); return; }
       if(e.key==='j' || e.key==='ArrowDown'){ buffer.scrollBy({top:60,behavior:'smooth'}); e.preventDefault(); return; }
       if(e.key==='k' || e.key==='ArrowUp'){ buffer.scrollBy({top:-60,behavior:'smooth'}); e.preventDefault(); return; }
       if(e.key==='g' && pendingOp==='g'){ buffer.scrollTo({top:0,behavior:'smooth'}); pendingOp=''; e.preventDefault(); return; }
       if(e.key==='g'){ pendingOp='g'; setTimeout(()=>pendingOp='',600); e.preventDefault(); return; }
       if(e.key==='G'){ buffer.scrollTo({top:buffer.scrollHeight,behavior:'smooth'}); e.preventDefault(); return; }
-      if(e.key==='?'){ showHelp(); e.preventDefault(); return; }
       return;
     }
 
-    if(e.key==='Escape'){ pendingNum=''; pendingOp=''; clearSearch(); return; }
-    if(e.key===':'){ cmdBuf=''; setMode('command'); renderCmdline(); e.preventDefault(); return; }
-    if(e.key==='/'){ cmdBuf=''; setMode('search'); renderCmdline(); e.preventDefault(); return; }
+    if(e.key==='Escape'){ pendingNum=''; pendingOp=''; return; }
     if(e.key==='j' || e.key==='ArrowDown'){ moveTo(selIdx+1); e.preventDefault(); return; }
     if(e.key==='k' || e.key==='ArrowUp'){ moveTo(selIdx-1); e.preventDefault(); return; }
     if(e.key==='Enter' || e.key==='o'){
       const cur = rows()[selIdx]; if(cur) openDetail(cur.dataset.id); e.preventDefault(); return;
     }
-    if(e.key==='?'){ showHelp(); e.preventDefault(); return; }
-
     if(/^\d$/.test(e.key)){ pendingNum += e.key; e.preventDefault(); return; }
     if(e.key==='g'){
       if(pendingOp==='g'){
         if(pendingNum){ moveTo(parseInt(pendingNum,10)-1); pendingNum=''; }
         else moveTo(0);
         pendingOp=''; e.preventDefault(); return;
-      } else {
-        pendingOp='g';
-        setTimeout(()=>{pendingOp=''; pendingNum='';}, 700);
-        e.preventDefault(); return;
       }
+      pendingOp='g'; setTimeout(()=>{pendingOp=''; pendingNum='';}, 700);
+      e.preventDefault(); return;
     }
     if(e.key==='G'){
       if(pendingNum){ moveTo(parseInt(pendingNum,10)-1); pendingNum=''; }
-      else moveTo(total()-1);
+      else moveTo(rows().length-1);
       e.preventDefault(); return;
     }
   });
@@ -586,8 +371,6 @@ Esc          cancel search
   });
 
   paintSelection();
-  setMode('normal');
-  updateStatus();
   buffer.focus();
 })();
 </script>
