@@ -10,12 +10,12 @@
 
 <style>
   :root{
-    --bg:#0a0a0a;
-    --fg:#7d7d7d;
-    --fg-bright:#e6e6e6;
-    --gutter:#3a3a3a;
-    --rule:#1c1c1c;
-    --accent:#7ee787;
+    --bg:#1F1F28;
+    --fg:#aca9a4;
+    --fg-bright:#DCD7BA;
+    --gutter:#393836;
+    --rule:#363646;
+    --accent:#c4b28a;
     --font:"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
     --scale:1.2;
   }
@@ -33,7 +33,7 @@
 
   /* ─── List view ──────────────────────────────────────────── */
   .list{padding:.15em 0 1.2em;margin:0;list-style:none;
-    font-size:calc(3rem * var(--scale));line-height:1;letter-spacing:-0.02em;
+    font-size:calc(2.4rem * var(--scale));line-height:1;letter-spacing:-0.02em;
     font-weight:500;text-transform:uppercase;}
   .row{display:grid;grid-template-columns:max-content 1fr;
     align-items:center;column-gap:.4ch;
@@ -52,24 +52,14 @@
 
   .row.is-selected{color:var(--fg-bright);}
   .row.is-selected .gut{color:var(--accent)}
-  .row.is-selected::before{
-    content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent);
-  }
   .row.is-hidden{display:none}
-  .row .ttl em{font-style:normal;background:var(--accent);color:#0a0a0a;padding:0 .1ch}
-
-  .row.is-selected .ttl::after{
-    content:"";display:inline-block;width:0.55ch;height:0.85em;
-    background:var(--accent);margin-left:.25ch;vertical-align:-0.05em;
-    animation:blink 1.05s steps(1) infinite;
-  }
-  @keyframes blink{50%{opacity:0}}
+  .row .ttl em{font-style:normal;background:var(--accent);color:var(--bg);padding:0 .1ch}
 
   /* ─── Detail view ────────────────────────────────────────── */
   .detail{display:none;padding:2.4rem clamp(1.5rem,6vw,5rem) 4rem;
-    max-width:78ch;margin:0 auto;color:var(--fg-bright);font-size:1.0rem;line-height:1.65}
+    max-width:100ch;margin:0 auto;color:var(--fg-bright);font-size:1.0rem;line-height:1.65}
   .detail.is-open{display:block}
-  .detail .meta{color:var(--gutter);font-size:.78rem;letter-spacing:.18em;
+  .detail .meta{color:#8ea49e;font-size:.78rem;letter-spacing:.18em;
     text-transform:uppercase;margin-bottom:1.6rem;display:flex;gap:1.5ch;flex-wrap:wrap;
     align-items:center}
   .detail .meta .k{color:var(--accent)}
@@ -81,36 +71,60 @@
     transition:background .12s ease}
   .detail .back:hover{background:color-mix(in oklab, var(--accent) 18%, transparent)}
   .detail .back kbd{font-family:inherit;color:var(--fg-bright);
-    background:#1a1a1a;border:1px solid #2a2a2a;border-radius:2px;
+    background:#2a2a37;border:1px solid #363646;border-radius:2px;
     padding:.05rem .5ch;font-size:.65rem;letter-spacing:.08em}
   .detail h1{font-size:clamp(1.6rem,3.4vw,2.4rem);line-height:1.1;margin:0 0 1.4rem;
     text-transform:uppercase;letter-spacing:-.01em;font-weight:500;color:var(--fg-bright)}
   .detail h2{font-size:1.05rem;margin:2.2rem 0 .6rem;text-transform:uppercase;
     letter-spacing:.1em;color:var(--accent);font-weight:500}
-  .detail p{margin:0 0 1.1rem;color:#bdbdbd}
+  .detail p{margin:0 0 1.1rem;color:#C8C093}
   .detail p.lede{color:var(--fg-bright);font-size:1.15rem}
-  .detail a.link{color:var(--accent);border-bottom:1px solid color-mix(in oklab, var(--accent) 40%, transparent)}
-  .detail a.link:hover{background:color-mix(in oklab, var(--accent) 18%, transparent)}
-  .detail pre{background:#111;border-left:2px solid var(--accent);
-    padding:1rem 1.2rem;overflow:auto;font-size:.85rem;color:#cfcfcf;margin:1rem 0 1.4rem}
-  .detail blockquote{border-left:2px solid var(--gutter);padding:.2rem 0 .2rem 1.4ch;
-    color:#9b9b9b;margin:1rem 0;font-style:normal}
-  .detail .poem{white-space:pre-wrap;color:#d1d1d1;font-size:1.02rem;line-height:1.75}
+  .detail a:not(.back){color:#7fb4ca;text-decoration:underline;
+    text-underline-offset:.2em;text-decoration-color:rgba(127,180,202,.4);
+    transition:color .12s,text-decoration-color .12s}
+  .detail a:not(.back):hover{color:#c4b28a;text-decoration-color:var(--accent)}
+  .detail pre{background:#2a2a37;border-left:2px solid var(--accent);
+    padding:1rem 1.2rem;overflow:auto;font-size:.85rem;color:#C8C093;margin:1rem 0 1.4rem}
+  .detail blockquote{border-left:2px solid var(--accent);padding:.6rem 0 .6rem 1.4ch;
+    color:var(--fg-bright);margin:1.2rem 0;font-style:italic;
+    background:rgba(196,178,138,.06);border-radius:0 4px 4px 0}
+  .detail .poem{white-space:pre-wrap;color:#C8C093;font-size:1.02rem;line-height:1.75}
   .detail .placeholder{display:block;background:
-      repeating-linear-gradient(45deg,#161616 0 10px,#1c1c1c 10px 20px);
-    height:18rem;border:1px dashed #2a2a2a;color:#666;
+      repeating-linear-gradient(45deg,#2a2a37 0 10px,#363646 10px 20px);
+    height:18rem;border:1px dashed #363646;color:#aca9a4;
     display:flex;align-items:center;justify-content:center;letter-spacing:.2em;
     font-size:.8rem;margin:1.4rem 0}
   .detail ul.links{list-style:none;padding:0;margin:0}
-  .detail ul.links li{padding:.35rem 0;border-bottom:1px solid #1a1a1a;
+  .detail ul.links li{padding:.35rem 0;border-bottom:1px solid #363646;
     display:flex;justify-content:space-between;gap:1ch}
   .detail ul.links li .arrow{color:var(--accent)}
+
+  /* ─── Table of contents ───────────────────────────────────── */
+  .detail-wrap{display:grid;grid-template-columns:1fr 200px;gap:2rem;
+    max-width:120ch;margin:0 auto;padding:2.4rem clamp(1.5rem,4vw,3rem) 4rem}
+  .detail-wrap .detail{padding:0;max-width:none;margin:0}
+  .toc{position:sticky;top:2.4rem;align-self:start;
+    font-size:.72rem;letter-spacing:.08em;line-height:1.6;
+    color:var(--fg);max-height:calc(100vh - 4.8rem);overflow-y:auto;
+    scrollbar-width:none;padding-top:.2rem}
+  .toc::-webkit-scrollbar{display:none}
+  .toc-title{color:var(--accent);text-transform:uppercase;letter-spacing:.18em;
+    font-weight:500;margin-bottom:.8rem;font-size:.65rem}
+  .toc a{display:block;padding:.25rem 0 .25rem .8ch;
+    border-left:1px solid var(--rule);color:var(--fg);
+    text-decoration:none;transition:color .12s,border-color .12s}
+  .toc a:hover,.toc a.is-active{color:var(--fg-bright);border-left-color:var(--accent)}
+  .toc a.toc-h3{padding-left:1.6ch;font-size:.68rem}
 
   .statusline{display:none}
   .cmdline{display:none}
 
   .hint{display:none}
 
+  @media (max-width:900px){
+    .detail-wrap{grid-template-columns:1fr;padding:2.4rem clamp(1.5rem,6vw,5rem) 4rem}
+    .toc{display:none}
+  }
   @media (max-width:780px){
     .list{font-size:calc(2.2rem * var(--scale))}
   }
@@ -128,7 +142,14 @@
     </ul>
 
     <!-- ============ DETAIL ARTICLES ============ -->
+    <div class="detail-wrap" id="detail-wrap" style="display:none">
+      <div id="detail-content">
 {{DETAIL_ARTICLES}}
+      </div>
+      <nav class="toc" id="toc">
+        <div class="toc-title">On this page</div>
+      </nav>
+    </div>
 
   </main>
 
@@ -237,13 +258,35 @@
     }
   }
 
+  const detailWrap = $('#detail-wrap');
+  const toc = $('#toc');
+
+  function buildToc(art){
+    toc.querySelectorAll('a').forEach(a => a.remove());
+    const headings = art.querySelectorAll('h2, h3');
+    headings.forEach((h, i) => {
+      if(!h.id) h.id = 'section-' + i;
+      const a = document.createElement('a');
+      a.href = '#' + h.id;
+      a.textContent = h.textContent;
+      if(h.tagName === 'H3') a.classList.add('toc-h3');
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        h.scrollIntoView({behavior:'smooth', block:'start'});
+      });
+      toc.appendChild(a);
+    });
+  }
+
   function openDetail(id){
     if(!id) return;
     const art = $(`.detail[data-id="${CSS.escape(id)}"]`);
     if(!art) return;
     ensureBackBtn(art);
     list.style.display = 'none';
+    detailWrap.style.display = '';
     $$('.detail').forEach(a => a.classList.toggle('is-open', a===art));
+    buildToc(art);
     setMode('detail');
     buffer.scrollTop = 0;
     lastView = 'detail';
@@ -252,6 +295,7 @@
 
   function closeDetail(){
     $$('.detail.is-open').forEach(a => a.classList.remove('is-open'));
+    detailWrap.style.display = 'none';
     list.style.display = '';
     setMode('normal');
     lastView = 'list';
@@ -454,6 +498,13 @@ Esc          cancel search
     const r = e.target.closest('.row'); if(!r) return;
     const vis = rows(); const i = vis.indexOf(r);
     if(i>=0){ selIdx=i; paintSelection(); openDetail(r.dataset.id); }
+  });
+
+  $$('.detail a[href]').forEach(a => {
+    if(!a.classList.contains('back') && !a.href.startsWith('#')){
+      a.setAttribute('target', '_blank');
+      a.setAttribute('rel', 'noopener');
+    }
   });
 
   paintSelection();

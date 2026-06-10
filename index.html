@@ -10,12 +10,12 @@
 
 <style>
   :root{
-    --bg:#0a0a0a;
-    --fg:#7d7d7d;
-    --fg-bright:#e6e6e6;
-    --gutter:#3a3a3a;
-    --rule:#1c1c1c;
-    --accent:#7ee787;
+    --bg:#1F1F28;
+    --fg:#aca9a4;
+    --fg-bright:#DCD7BA;
+    --gutter:#393836;
+    --rule:#363646;
+    --accent:#c4b28a;
     --font:"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
     --scale:1.2;
   }
@@ -33,7 +33,7 @@
 
   /* ─── List view ──────────────────────────────────────────── */
   .list{padding:.15em 0 1.2em;margin:0;list-style:none;
-    font-size:calc(3rem * var(--scale));line-height:1;letter-spacing:-0.02em;
+    font-size:calc(2.4rem * var(--scale));line-height:1;letter-spacing:-0.02em;
     font-weight:500;text-transform:uppercase;}
   .row{display:grid;grid-template-columns:max-content 1fr;
     align-items:center;column-gap:.4ch;
@@ -52,24 +52,14 @@
 
   .row.is-selected{color:var(--fg-bright);}
   .row.is-selected .gut{color:var(--accent)}
-  .row.is-selected::before{
-    content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent);
-  }
   .row.is-hidden{display:none}
-  .row .ttl em{font-style:normal;background:var(--accent);color:#0a0a0a;padding:0 .1ch}
-
-  .row.is-selected .ttl::after{
-    content:"";display:inline-block;width:0.55ch;height:0.85em;
-    background:var(--accent);margin-left:.25ch;vertical-align:-0.05em;
-    animation:blink 1.05s steps(1) infinite;
-  }
-  @keyframes blink{50%{opacity:0}}
+  .row .ttl em{font-style:normal;background:var(--accent);color:var(--bg);padding:0 .1ch}
 
   /* ─── Detail view ────────────────────────────────────────── */
   .detail{display:none;padding:2.4rem clamp(1.5rem,6vw,5rem) 4rem;
-    max-width:78ch;margin:0 auto;color:var(--fg-bright);font-size:1.0rem;line-height:1.65}
+    max-width:100ch;margin:0 auto;color:var(--fg-bright);font-size:1.0rem;line-height:1.65}
   .detail.is-open{display:block}
-  .detail .meta{color:var(--gutter);font-size:.78rem;letter-spacing:.18em;
+  .detail .meta{color:#8ea49e;font-size:.78rem;letter-spacing:.18em;
     text-transform:uppercase;margin-bottom:1.6rem;display:flex;gap:1.5ch;flex-wrap:wrap;
     align-items:center}
   .detail .meta .k{color:var(--accent)}
@@ -81,36 +71,60 @@
     transition:background .12s ease}
   .detail .back:hover{background:color-mix(in oklab, var(--accent) 18%, transparent)}
   .detail .back kbd{font-family:inherit;color:var(--fg-bright);
-    background:#1a1a1a;border:1px solid #2a2a2a;border-radius:2px;
+    background:#2a2a37;border:1px solid #363646;border-radius:2px;
     padding:.05rem .5ch;font-size:.65rem;letter-spacing:.08em}
   .detail h1{font-size:clamp(1.6rem,3.4vw,2.4rem);line-height:1.1;margin:0 0 1.4rem;
     text-transform:uppercase;letter-spacing:-.01em;font-weight:500;color:var(--fg-bright)}
   .detail h2{font-size:1.05rem;margin:2.2rem 0 .6rem;text-transform:uppercase;
     letter-spacing:.1em;color:var(--accent);font-weight:500}
-  .detail p{margin:0 0 1.1rem;color:#bdbdbd}
+  .detail p{margin:0 0 1.1rem;color:#C8C093}
   .detail p.lede{color:var(--fg-bright);font-size:1.15rem}
-  .detail a.link{color:var(--accent);border-bottom:1px solid color-mix(in oklab, var(--accent) 40%, transparent)}
-  .detail a.link:hover{background:color-mix(in oklab, var(--accent) 18%, transparent)}
-  .detail pre{background:#111;border-left:2px solid var(--accent);
-    padding:1rem 1.2rem;overflow:auto;font-size:.85rem;color:#cfcfcf;margin:1rem 0 1.4rem}
-  .detail blockquote{border-left:2px solid var(--gutter);padding:.2rem 0 .2rem 1.4ch;
-    color:#9b9b9b;margin:1rem 0;font-style:normal}
-  .detail .poem{white-space:pre-wrap;color:#d1d1d1;font-size:1.02rem;line-height:1.75}
+  .detail a:not(.back){color:#7fb4ca;text-decoration:underline;
+    text-underline-offset:.2em;text-decoration-color:rgba(127,180,202,.4);
+    transition:color .12s,text-decoration-color .12s}
+  .detail a:not(.back):hover{color:#c4b28a;text-decoration-color:var(--accent)}
+  .detail pre{background:#2a2a37;border-left:2px solid var(--accent);
+    padding:1rem 1.2rem;overflow:auto;font-size:.85rem;color:#C8C093;margin:1rem 0 1.4rem}
+  .detail blockquote{border-left:2px solid var(--accent);padding:.6rem 0 .6rem 1.4ch;
+    color:var(--fg-bright);margin:1.2rem 0;font-style:italic;
+    background:rgba(196,178,138,.06);border-radius:0 4px 4px 0}
+  .detail .poem{white-space:pre-wrap;color:#C8C093;font-size:1.02rem;line-height:1.75}
   .detail .placeholder{display:block;background:
-      repeating-linear-gradient(45deg,#161616 0 10px,#1c1c1c 10px 20px);
-    height:18rem;border:1px dashed #2a2a2a;color:#666;
+      repeating-linear-gradient(45deg,#2a2a37 0 10px,#363646 10px 20px);
+    height:18rem;border:1px dashed #363646;color:#aca9a4;
     display:flex;align-items:center;justify-content:center;letter-spacing:.2em;
     font-size:.8rem;margin:1.4rem 0}
   .detail ul.links{list-style:none;padding:0;margin:0}
-  .detail ul.links li{padding:.35rem 0;border-bottom:1px solid #1a1a1a;
+  .detail ul.links li{padding:.35rem 0;border-bottom:1px solid #363646;
     display:flex;justify-content:space-between;gap:1ch}
   .detail ul.links li .arrow{color:var(--accent)}
+
+  /* ─── Table of contents ───────────────────────────────────── */
+  .detail-wrap{display:grid;grid-template-columns:1fr 200px;gap:2rem;
+    max-width:120ch;margin:0 auto;padding:2.4rem clamp(1.5rem,4vw,3rem) 4rem}
+  .detail-wrap .detail{padding:0;max-width:none;margin:0}
+  .toc{position:sticky;top:2.4rem;align-self:start;
+    font-size:.72rem;letter-spacing:.08em;line-height:1.6;
+    color:var(--fg);max-height:calc(100vh - 4.8rem);overflow-y:auto;
+    scrollbar-width:none;padding-top:.2rem}
+  .toc::-webkit-scrollbar{display:none}
+  .toc-title{color:var(--accent);text-transform:uppercase;letter-spacing:.18em;
+    font-weight:500;margin-bottom:.8rem;font-size:.65rem}
+  .toc a{display:block;padding:.25rem 0 .25rem .8ch;
+    border-left:1px solid var(--rule);color:var(--fg);
+    text-decoration:none;transition:color .12s,border-color .12s}
+  .toc a:hover,.toc a.is-active{color:var(--fg-bright);border-left-color:var(--accent)}
+  .toc a.toc-h3{padding-left:1.6ch;font-size:.68rem}
 
   .statusline{display:none}
   .cmdline{display:none}
 
   .hint{display:none}
 
+  @media (max-width:900px){
+    .detail-wrap{grid-template-columns:1fr;padding:2.4rem clamp(1.5rem,6vw,5rem) 4rem}
+    .toc{display:none}
+  }
   @media (max-width:780px){
     .list{font-size:calc(2.2rem * var(--scale))}
   }
@@ -135,25 +149,27 @@
     </ul>
 
     <!-- ============ DETAIL ARTICLES ============ -->
+    <div class="detail-wrap" id="detail-wrap" style="display:none">
+      <div id="detail-content">
     <article class="detail" data-id="death-of-science">
-      <div class="meta"><span><span class="k">type</span> ESSAY</span><span><span class="k">date</span> Wed Apr 02 2025 21:00:00 GMT-0300 (Brasilia Standard Time)</span><span><span class="k">read</span> 8m</span></div>
+      <div class="meta"><span><span class="k">type</span> ESSAY</span><span><span class="k">date</span> 2025-04-03</span><span><span class="k">location</span> Milan, Italy</span></div>
       <h1>The Death of Science and the Birth of Magic in Software Development</h1>
       <p>In <em>The Abolition of Man</em>, C.S. Lewis observed the death of magic and the birth of science, a shift that signified humanity&#39;s transition from mystical attempts at dominion over nature to rigorous, systematic inquiry. Magic sought power through rituals and symbols; science pursued understanding through reason and experimentation. Science triumphed because, unlike magic, it actually worked. But today, in software development, we stand at the precipice of an inversion: the death of science and the rebirth of magic.</p>
 <hr>
-<h2>The Shift from Understanding to Invocation</h2>
+<h3>The Shift from Understanding to Invocation</h3>
 <p>For decades, software engineering has been a discipline of science. It was a craft of understanding, an engagement with algorithms, architecture, and logic. Engineers built systems with deep awareness of their inner workings, much like the physicist who does not simply wield a formula but understands the principles behind it. The software developer was a scientist, deciphering complexity and weaving structure from chaos.</p>
 <p>Yet now, the landscape is shifting. Trends like &quot;vibe coding,&quot; AI-driven software creation (such as Devin), and the rise of junior developers equipped only with cursor-driven tools mark a new age, an age where the process is being eclipsed by the outcome. The new generations of developers are increasingly detached from the <em>how</em> and fixated on the <em>what</em>. The journey of understanding is abandoned in favor of the destination.</p>
 <hr>
-<h2>The Rise of a New Magic</h2>
+<h3>The Rise of a New Magic</h3>
 <p>This, to me, is magic.</p>
 <p>Magic is the practice of achieving results without grasping the underlying mechanics. It is the invocation of forces without comprehension of their nature. And is this not what we see in modern software development? AI-assisted coding platforms generate entire applications without their users understanding the underlying logic. Developers string together pre-built components, summoning functionality with the equivalent of incantations, &quot;just use this framework,&quot; &quot;paste this snippet,&quot; &quot;let the AI handle it.&quot; The knowledge of the craft fades, replaced by an almost mystical reliance on tools beyond our grasp.</p>
 <hr>
-<h2>The Danger of Disconnection</h2>
+<h3>The Danger of Disconnection</h3>
 <p>Once, science reigned in software development, and mastery required engagement with the internals of computing. Now, we stand at the dawn of a new era, one where magic is reborn, not the magic of folklore, but the magic of automation, abstraction, and opaque intelligence.</p>
 <p>But this path is not without peril. As developers become further detached from the foundations of their craft, we risk fostering a generation of engineers who lack the ability to troubleshoot, optimize, or innovate beyond what their tools permit. Dependency on black-box solutions leads to stagnation, where genuine problem-solving is replaced by mere assembly. The less we understand, the more vulnerable we become, to security risks, inefficiencies, and an industry that values output over craftsmanship.</p>
 <p><strong>The magic we embrace today may, in time, become a cage, trapping us within systems.</strong></p>
 <hr>
-<h2>Easily Replaced</h2>
+<h3>Easily Replaced</h3>
 <p>Furthermore, this new generation, raised in the culture of magic, may be the first to be effortlessly replaced by AI. Their skills are not rooted in deep technical understanding, but in the ability to harness what AI already provides.</p>
 <blockquote>
 <p>If their entire approach to development is simply invoking what the machine can generate, how are they any different from the code-generation tools themselves?</p>
@@ -161,7 +177,7 @@
 <p>And let&#39;s be honest, those tools are faster, more consistent, and far less expensive. In building software through borrowed intelligence, they risk becoming redundant, ghosts in a machine that no longer needs them.</p>
 <p>If we continue on this trajectory, software development may no longer be an art or a science, but an illusion, one where the illusionist himself is unaware of how the trick is performed, and worse, one where the illusionist is no longer needed at all.</p>
 <hr>
-<h2>The Path Forward</h2>
+<h3>The Path Forward</h3>
 <p>But we don&#39;t have to accept that fate. I&#39;m not saying we should reject AI, far from it. These tools can be incredibly powerful allies when used wisely.</p>
 <p>The key is <em>engagement</em>. Stay curious. Understand the process. Ask how things work, and more importantly, <strong>why</strong>.</p>
 <ul>
@@ -177,7 +193,7 @@
     </article>
 
     <article class="detail" data-id="everything-is-a-mixtape">
-      <div class="meta"><span><span class="k">type</span> ESSAY</span><span><span class="k">date</span> Wed Jan 01 2025 21:00:00 GMT-0300 (Brasilia Standard Time)</span><span><span class="k">read</span> 7m</span></div>
+      <div class="meta"><span><span class="k">type</span> ESSAY</span><span><span class="k">date</span> 2025-01-02</span><span><span class="k">location</span> Milan, Italy</span></div>
       <h1>Everything is a Mixtape</h1>
       <h3>How Everything Is Made from Something Previous: The Cycle of Copy, Transform, and Combine</h3>
 <p>Innovation does not emerge in a vacuum; it builds upon existing ideas and structures. The core of any creative process lies in three fundamental steps: <strong>copy</strong>, <strong>transform</strong>, and <strong>combine</strong>. These steps represent the foundation of human progress and creativity. From language to technology, we inherently learn by mimicking what came before us. Copying is not theft—it&#39;s the first stage of understanding and mastery. It&#39;s only through absorbing and internalizing ideas that we can adapt and transform them into something new and innovative.</p>
@@ -206,6 +222,11 @@
 <p><a href="https://www.youtube.com/watch?v=nJPERZDfyWc&list=LL&index=1&t=1022s">Inspirational source</a></p>
 
     </article>
+      </div>
+      <nav class="toc" id="toc">
+        <div class="toc-title">On this page</div>
+      </nav>
+    </div>
 
   </main>
 
@@ -314,13 +335,35 @@
     }
   }
 
+  const detailWrap = $('#detail-wrap');
+  const toc = $('#toc');
+
+  function buildToc(art){
+    toc.querySelectorAll('a').forEach(a => a.remove());
+    const headings = art.querySelectorAll('h2, h3');
+    headings.forEach((h, i) => {
+      if(!h.id) h.id = 'section-' + i;
+      const a = document.createElement('a');
+      a.href = '#' + h.id;
+      a.textContent = h.textContent;
+      if(h.tagName === 'H3') a.classList.add('toc-h3');
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        h.scrollIntoView({behavior:'smooth', block:'start'});
+      });
+      toc.appendChild(a);
+    });
+  }
+
   function openDetail(id){
     if(!id) return;
     const art = $(`.detail[data-id="${CSS.escape(id)}"]`);
     if(!art) return;
     ensureBackBtn(art);
     list.style.display = 'none';
+    detailWrap.style.display = '';
     $$('.detail').forEach(a => a.classList.toggle('is-open', a===art));
+    buildToc(art);
     setMode('detail');
     buffer.scrollTop = 0;
     lastView = 'detail';
@@ -329,6 +372,7 @@
 
   function closeDetail(){
     $$('.detail.is-open').forEach(a => a.classList.remove('is-open'));
+    detailWrap.style.display = 'none';
     list.style.display = '';
     setMode('normal');
     lastView = 'list';
@@ -531,6 +575,13 @@ Esc          cancel search
     const r = e.target.closest('.row'); if(!r) return;
     const vis = rows(); const i = vis.indexOf(r);
     if(i>=0){ selIdx=i; paintSelection(); openDetail(r.dataset.id); }
+  });
+
+  $$('.detail a[href]').forEach(a => {
+    if(!a.classList.contains('back') && !a.href.startsWith('#')){
+      a.setAttribute('target', '_blank');
+      a.setAttribute('rel', 'noopener');
+    }
   });
 
   paintSelection();

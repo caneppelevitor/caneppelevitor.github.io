@@ -2,7 +2,7 @@
 title: Everything is a Mixtape
 tag: essay
 date: 2025-01-02
-read: 7m
+location: Milan, Italy
 ---
 
 ### How Everything Is Made from Something Previous: The Cycle of Copy, Transform, and Combine

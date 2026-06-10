@@ -2,14 +2,14 @@
 title: "The Death of Science and the Birth of Magic in Software Development"
 tag: essay
 date: 2025-04-03
-read: 8m
+location: Milan, Italy
 ---
 
 In _The Abolition of Man_, C.S. Lewis observed the death of magic and the birth of science, a shift that signified humanity's transition from mystical attempts at dominion over nature to rigorous, systematic inquiry. Magic sought power through rituals and symbols; science pursued understanding through reason and experimentation. Science triumphed because, unlike magic, it actually worked. But today, in software development, we stand at the precipice of an inversion: the death of science and the rebirth of magic.
 
 ---
 
-## The Shift from Understanding to Invocation
+### The Shift from Understanding to Invocation
 
 For decades, software engineering has been a discipline of science. It was a craft of understanding, an engagement with algorithms, architecture, and logic. Engineers built systems with deep awareness of their inner workings, much like the physicist who does not simply wield a formula but understands the principles behind it. The software developer was a scientist, deciphering complexity and weaving structure from chaos.
 
@@ -17,7 +17,7 @@ Yet now, the landscape is shifting. Trends like "vibe coding," AI-driven softwar
 
 ---
 
-## The Rise of a New Magic
+### The Rise of a New Magic
 
 This, to me, is magic.
 
@@ -25,7 +25,7 @@ Magic is the practice of achieving results without grasping the underlying mecha
 
 ---
 
-## The Danger of Disconnection
+### The Danger of Disconnection
 
 Once, science reigned in software development, and mastery required engagement with the internals of computing. Now, we stand at the dawn of a new era, one where magic is reborn, not the magic of folklore, but the magic of automation, abstraction, and opaque intelligence.
 
@@ -35,7 +35,7 @@ But this path is not without peril. As developers become further detached from t
 
 ---
 
-## Easily Replaced
+### Easily Replaced
 
 Furthermore, this new generation, raised in the culture of magic, may be the first to be effortlessly replaced by AI. Their skills are not rooted in deep technical understanding, but in the ability to harness what AI already provides.
 
@@ -47,7 +47,7 @@ If we continue on this trajectory, software development may no longer be an art 
 
 ---
 
-## The Path Forward
+### The Path Forward
 
 But we don't have to accept that fate. I'm not saying we should reject AI, far from it. These tools can be incredibly powerful allies when used wisely.
 

@@ -36,13 +36,13 @@ const listRows = files.map((entry, i) => {
 
 const detailArticles = files.map(entry => {
   const tag = (entry.tag || '').toUpperCase();
-  const datePart = entry.date ? `<span><span class="k">date</span> ${entry.date}</span>` : '';
-  const readPart = entry.read && entry.read !== false ? `<span><span class="k">read</span> ${entry.read}</span>` : '';
-  const countPart = entry.count ? `<span><span class="k">count</span> ${entry.count}</span>` : '';
+  const dateStr = entry.date instanceof Date ? entry.date.toISOString().slice(0, 10) : entry.date;
+  const datePart = dateStr ? `<span><span class="k">date</span> ${dateStr}</span>` : '';
+  const locationPart = entry.location ? `<span><span class="k">location</span> ${escapeHtml(entry.location)}</span>` : '';
   const body = marked.parse(entry.content.trim());
 
   return `    <article class="detail" data-id="${entry.slug}">
-      <div class="meta"><span><span class="k">type</span> ${escapeHtml(tag)}</span>${datePart}${readPart}${countPart}</div>
+      <div class="meta"><span><span class="k">type</span> ${escapeHtml(tag)}</span>${datePart}${locationPart}</div>
       <h1>${escapeHtml(entry.title)}</h1>
       ${body}
     </article>`;
